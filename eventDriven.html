@@ -1,0 +1,60 @@
+<!--Jacob Macias, I thought Id do something different with this one-->
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <title>EventDrivenProgramming</title>
+    <style>
+        body {
+            margin:0%;
+            height: 100vh;
+            background-image: url('wave.jpg'); /*a wave I created using https://perchance.org/ai-character-generator */
+            background-size: cover; /*here I made it the cover*/
+            background-position: center;
+        }
+        #surfer {
+            font-size: 120px; /* I wanted the emoji to be large enough for a toy-like feeling */
+            position: absolute; /*this property allows me to set the emoji 400px from the top and 700px from the left so it looks like the emoji is surfing lol*/
+            top: 400px;
+            left: 700px;
+            cursor: pointer; /*turns cursor into a pointer when combing over the button elements*/
+            user-select: none; /*Prevents text selection*/
+        }
+    </style>
+    </head>
+    <body>
+    <div id="surfer">🏄‍♂️</div> <!--here is my surfer attribute that I want floating around-->
+    <button id="startButton">Start</button> <!--Start and stop button elements-->
+    <button id="stopButton">Stop</button>
+    
+    <script>
+        const surfer = document.getElementById('surfer'); /*a constant variable surfer with the getElement so that we can use it later*/
+            let moveInterval = null; /*the declares the variable moveInterval and initializes it with the value null*/
+    
+        /*the element addEventListiner runs when the start button is clicked and the function of the method procedes as follows*/
+        document.getElementById('startButton').addEventListener('click', function() {
+            if (moveInterval === null) {                     /*This condition checks if the interval timer is null*/
+                moveInterval = setInterval(moveSurfer, 800); /*this function calls to move the surfer emoji every 800 miliseconds.*/
+            }
+        });
+        /*once stop button is clicked the addEventListiner element is executed as follows*/
+        document.getElementById('stopButton').addEventListener('click', function() {
+            if (moveInterval !== null) { /*this condition checks if moveInterval is not null*/
+                clearInterval(moveInterval); /*This function clears the interval timer*/
+                moveInterval = null; /*the variable is set back to null here to indicate that there isnt an active interval timer. These last steps are included for best practice to reset the moveInterval variable to null, maintaining consistency*/
+            }
+        });
+    
+        /*here we have the moveSurfer() function that calculates random X and Y coordinates within the window boundaries*/
+        function moveSurfer() {
+            const maxX = window.innerWidth - surfer.clientWidth; /*here the emojis' width is subtracted from the width of the window to ensure the emoji wont overshoot the visible area.*/
+            const maxY = window.innerHeight - surfer.clientHeight; /*The height is now considered in the same formula as the width is for the emoji*/
+            const randomX = Math.random() * maxX; /*here we use Math.random() to generate a random number along the x-axis*/
+            const randomY = Math.random() * maxY; /*we do the same again with Math.random() however, we generate for the y-axis*/
+            surfer.style.left = randomX + 'px'; /*the surfer will move to randomly generated positions along the X axis according to the Math.random() function*/
+            surfer.style.top = randomY + 'px'; /* the surfer will move to randomly generated positions along the Y axis according the Math.random() funciton*/
+        }
+    </script>
+    </body>
+    </html>
+    
